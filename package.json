@@ -1,0 +1,15 @@
+{
+  "name": "photo-lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Paul Smith <code@uvwxy.de>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cli-progress": "^3.8.2",
+    "exif": "^0.6.0"
+  }
+}
