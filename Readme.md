@@ -17,6 +17,8 @@ Example:
 
     photo-ingress srcFolder/ targetFolder --copy # this will copy files not existing yet in the target 
 
+Note: If there is no exif flag "DateCreated" the date 1970-1-1 is used.
+
 # Examples
 
 First print the help text:
