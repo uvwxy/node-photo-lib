@@ -12,6 +12,8 @@ var numCopy = 0;
 var numExist = 0;
 var numTotal = 0;
 
+const copiedImages = [];
+const existingImages = [];
 const borkedImages = [];
 
 const prg = new cliProgress.MultiBar({
@@ -26,24 +28,30 @@ const prgBorked = prg.create(inputImages.length, 0);
 
 prgCopy.update(0, { fileName: "Copied" });
 prgExist.update(0, { fileName: "Exist " });
-prgBorked.update(0, { fileName: "Borked" });
+prgBorked.update(0, { fileName: "Collisions" });
 
 const checkImage = (imagePaths, outputPath, i) => {
-    prgTotal.update(i + 1, { fileName: "Total " });
+    prgTotal.update(i, { fileName: "Total " });
 
     if (i >= imagePaths.length) {
         prg.stop();
-        console.log("Borked Images:");
-        borkedImages.forEach(imagePath => console.log(imagePath));
+        if (options.printCopied) {
+            copiedImages.forEach(line => console.log(line));
+        }
+        if (options.printExisting) {
+            existingImages.forEach(line => console.log(line));
+        }
+        if (options.printCollisions) {
+            borkedImages.forEach(line => console.log(line));
+        }
         console.log("Total:", numTotal);
-        console.log("Existing:", numExist);
-        console.log("Borked:", borkedImages.length);
         if (options.isCopy) {
             console.log("Copied:", numCopy);
         } else {
             console.log("Would copy:", numCopy);
         }
-
+        console.log("Existing:", numExist);
+        console.log("Collisions:", borkedImages.length);
         return;
     }
 
@@ -60,8 +68,10 @@ const checkImage = (imagePaths, outputPath, i) => {
             prgExist.update(numExist);
             imageUtil.compareExif(srcPath, targetPath, exifEqual => {
                 if (!exifEqual) {
-                    borkedImages.push(targetPath, { fileName: "Borked" });
-                    prgBorked.update(borkedImages.length);
+                    borkedImages.push(`${srcPath}, ${targetPath}`);
+                    prgBorked.update(borkedImages.length, { fileName: "Collisions" });
+                } else {
+                    existingImages.push(`${srcPath} == ${targetPath}`);
                 }
             });
         } else {
@@ -73,6 +83,7 @@ const checkImage = (imagePaths, outputPath, i) => {
                 fs.copyFileSync(srcPath, targetPath);
                 prgCopy.update(numCopy, { fileName: "Copied" });
             }
+            copiedImages.push(`${srcPath} ${options.isCopy ? "=>" : "~>"} ${targetPath}`);
         }
 
         checkImage(imagePaths, outputPath, i + 1);

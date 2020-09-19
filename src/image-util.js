@@ -45,8 +45,11 @@ const readExifData = (imagePath, callback) => {
 };
 
 const exifDateToPath = (outputPath, createDate, fileName) => {
-    const temp = createDate.split(" ");
-    const date = temp[0].split(":");
+    var date = ["1970","1","1"]; // fallback
+    if (createDate) {
+        const temp = createDate.split(" ");
+        date = temp[0].split(":");
+    }
     // const time = temp[1].split(":");
     return path.resolve(outputPath, date[0], date[1], date[2], fileName);
 }
