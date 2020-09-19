@@ -1,13 +1,13 @@
 {
-  "name": "photo-lib",
+  "name": "photo-ingress",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "bin": "src/main.js",
   "author": "Paul Smith <code@uvwxy.de>",
-  "license": "UNLICENSED",
+  "license": "GPLv3",
   "dependencies": {
     "cli-progress": "^3.8.2",
     "exif": "^0.6.0"

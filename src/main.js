@@ -1,3 +1,5 @@
+#!/usr/local/bin/node
+
 const cliProgress = require('cli-progress');
 const options = require("./input-validation").validate();
 const imageUtil = require("./image-util");

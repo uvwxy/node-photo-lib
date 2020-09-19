@@ -6,8 +6,8 @@ const validate = () => {
     const params = process.argv;
 
     if (params.length < 4) {
-        console.log("Usage: node src/main.js inputPath outputPath [--copy]");
-        console.log("No options means simulation.");
+        console.log("Usage: photo-ingress inputPath outputPath [--copy]");
+        console.log("No options means simulation, i.e. only if --copy is provided files are written.");
         process.exit();
     }
 
