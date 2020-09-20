@@ -1,7 +1,6 @@
 # photo-ingress
 
-A small script to copy all files (`jpg`,`jpeg`) found within an input folder (recursively) to an output folder organized by year/month/day
-
+A small script to copy all files (`jpg`,`jpeg`) found within an input folder (recursively) to an output folder organized by year/month/day, detecting duplicates by comparing the exif tags `"CreateDate"`, `"ImageWidth"`, `"ImageHeight"`
 Example:
 
     srcFolder/foo/bar/img.jpg -> targetFolder/2020/05/18/img.jpg
@@ -17,7 +16,9 @@ Example:
 
     photo-ingress srcFolder/ targetFolder --copy # this will copy files not existing yet in the target 
 
-Note: If there is no exif flag "DateCreated" the date 1970-1-1 is used.
+# Notes: 
+
+- If there is no exif flag "DateCreated" the date 1970-1-1 is used.
 
 # Examples
 

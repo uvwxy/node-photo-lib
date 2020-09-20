@@ -15,8 +15,7 @@ const findFiles = (inputPath, extensions) => {
             } else if (file.substr(-1 * (ext.length + 1)).toLowerCase() == ('.' + ext).toLowerCase()) {
                 result.push(newbase)
             }
-        }
-        )
+        });
         return result
     }
 
@@ -45,7 +44,7 @@ const readExifData = (imagePath, callback) => {
 };
 
 const exifDateToPath = (outputPath, createDate, fileName) => {
-    var date = ["1970","1","1"]; // fallback
+    var date = ["1970", "1", "1"]; // fallback
     if (createDate) {
         const temp = createDate.split(" ");
         date = temp[0].split(":");
