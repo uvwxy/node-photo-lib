@@ -1,6 +1,7 @@
 const ExifImage = require("exif").ExifImage;
 const path = require("path");
 const fs = require("fs");
+const md5File = require('md5-file')
 
 const findFiles = (inputPath, extensions) => {
     // based on https://gist.github.com/victorsollozzo/4134793
@@ -76,8 +77,17 @@ const compareExif = (srcPath, targetPath, callback) => {
     });
 }
 
+const compareMd5 = (srcPath, targetPath, callback) => {
+    md5File(srcPath).then((srcHash) => {
+        md5File(targetPath).then((targetHash) => {
+            callback(srcHash == targetHash);
+        });
+    });
+}
+
 module.exports = {
     compareExif,
+    compareMd5,
     exifDateToPath,
     readExifData,
     findFiles

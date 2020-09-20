@@ -13,7 +13,7 @@ const validate = () => {
 
     const inputPath = path.normalize(process.argv[2]);
     const outputPath = path.normalize(process.argv[3]);
-    const options = [4, 5, 6, 7].map(x => process.argv[x]).filter(x => x);
+    const options = [4, 5, 6, 7, 8].map(x => process.argv[x]).filter(x => x);
 
     if (!fs.statSync(inputPath).isDirectory()) {
         console.log("Error:", inputPath, "is not a directory");
@@ -31,7 +31,8 @@ const validate = () => {
         isCopy: options.findIndex(x => x == "--copy") >= 0,
         printCollisions: options.findIndex(x => x == "--printCollisions") >= 0,
         printCopied: options.findIndex(x => x == "--printCopied") >= 0,
-        printExisting: options.findIndex(x => x == "--printExisting") >= 0
+        printExisting: options.findIndex(x => x == "--printExisting") >= 0,
+        md5: options.findIndex(x => x == "--md5") >= 0
     }
 }
 

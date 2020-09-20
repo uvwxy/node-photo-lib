@@ -66,7 +66,10 @@ const checkImage = (imagePaths, outputPath, i) => {
         if (exists) {
             numExist++;
             prgExist.update(numExist);
-            imageUtil.compareExif(srcPath, targetPath, exifEqual => {
+
+            const compareFn = options.md5 ? imageUtil.compareMd5 : imageUtil.compareExif;
+
+            compareFn(srcPath, targetPath, exifEqual => {
                 if (!exifEqual) {
                     borkedImages.push(`${srcPath}, ${targetPath}`);
                     prgBorked.update(borkedImages.length, { fileName: "Collisions" });
@@ -90,4 +93,10 @@ const checkImage = (imagePaths, outputPath, i) => {
     });
 }
 
+
+if (options.md5) {
+    console.log("Using md5 comparison");
+} else {
+    console.log("Using exif comparison (hint: --md5)");
+}
 checkImage(inputImages, options.outputPath, 0);

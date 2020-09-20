@@ -22,6 +22,8 @@ Example:
 
 # Examples
 
+## General usage
+
 First print the help text:
 
     mrbook:panos paul$ photo-ingress
@@ -85,3 +87,38 @@ Now, we try the same. The `==` indicates existing files:
     Existing: 75
     Collisions: 0
 
+## md5 comparison
+
+Comparing without `--md5`, i.e. by comparing exif meta data, is faster, but theoretically not correct:
+
+    mrbook:broken-image-import paul$ time photo-ingress ./ ~/media/photo-lib/
+    Using exif comparison (hint: --md5)
+    [████████████████████████████████████████] Total  | 100% | 2499/2499
+    [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] Copied | 0% | 0/2499
+    [████████████████████████████████████████] Exist  | 100% | 2499/2499
+    [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] Collisions | 0% | 0/2499
+    Total: 2499
+    Would copy: 0
+    Existing: 2499
+    Collisions: 0
+
+    real	0m12.855s
+    user	0m4.638s
+    sys	0m18.228s
+
+Comparing with `--md5` is slower (but guarantees files are identical):
+
+    mrbook:broken-image-import paul$ time photo-ingress ./ ~/media/photo-lib/ --md5
+    Using md5 comparison
+    [████████████████████████████████████████] Total  | 100% | 2499/2499
+    [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] Copied | 0% | 0/2499
+    [████████████████████████████████████████] Exist  | 100% | 2499/2499
+    [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] Collisions | 0% | 0/2499
+    Total: 2499
+    Would copy: 0
+    Existing: 2499
+    Collisions: 0
+
+    real	0m42.457s
+    user	0m42.584s
+    sys	0m15.396s
